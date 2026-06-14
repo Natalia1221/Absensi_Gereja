@@ -58,7 +58,7 @@ export default function EditUser({ user }) {
                                 <TextInput
                                     id="name"
                                     value={data.name}
-                                    className="mt-1 block w-full rounded-xl"
+                                    className="mt-1 block w-full rounded-xl border-slate-200 dark:bg-slate-900"
                                     onChange={(e) => setData('name', e.target.value)}
                                     required
                                 />
@@ -71,7 +71,7 @@ export default function EditUser({ user }) {
                                     id="email"
                                     type="email"
                                     value={data.email}
-                                    className="mt-1 block w-full rounded-xl"
+                                    className="mt-1 block w-full rounded-xl border-slate-200 dark:bg-slate-900"
                                     onChange={(e) => setData('email', e.target.value)}
                                     required
                                 />
@@ -120,7 +120,7 @@ export default function EditUser({ user }) {
                                     id="password"
                                     type="password"
                                     value={data.password}
-                                    className="mt-1 block w-full rounded-xl"
+                                    className="mt-1 block w-full rounded-xl border-slate-200 dark:bg-slate-900"
                                     placeholder="Isi hanya jika ingin mengganti sandi lama"
                                     onChange={(e) => setData('password', e.target.value)}
                                 />
