@@ -77,7 +77,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                     </div>
 
                     {/* ========================================================= */}
-                    {/* 🏛️ TAMPILAN 1: DASHBOARD KHUSUS ADMINISTRATOR             */}
+                    {/* TAMPILAN 1: DASHBOARD KHUSUS ADMINISTRATOR             */}
                     {/* ========================================================= */}
                     {auth.user.role === 'admin' && (
                         <div className="space-y-8">
@@ -156,7 +156,6 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                                                             )}
                                                         </td>
                                                         <td className="px-6 py-4 text-center whitespace-nowrap">
-                                                            {/* 🚀 PERBAIKAN DI SINI: Mengubah dari selfie_path menjadi photo_path */}
                                                             {abs.photo_path ? (
                                                                 <button
                                                                     onClick={() => setActiveSelfie(`/storage/${abs.photo_path}`)}
@@ -182,7 +181,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                                                                     <span className="text-xs font-medium text-slate-400 italic">Tanpa Foto</span>
                                                                 )}
 
-                                                                {/* 🚨 TOMBOL AKSI HAPUS (BARU) */}
+                                                                {/* TOMBOL AKSI HAPUS (BARU) */}
                                                                 <button
                                                                     onClick={() => handleDelete(abs.id, abs.user?.name)}
                                                                     className="text-xs font-bold bg-red-50 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-100 transition-colors dark:bg-red-950/30 dark:text-red-400"
@@ -218,7 +217,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                     )}
 
                     {/* ========================================================= */}
-                    {/* 🧑‍🏫 TAMPILAN 2: DASHBOARD KHUSUS USER / GSM               */}
+                    {/* TAMPILAN 2: DASHBOARD KHUSUS USER / GSM               */}
                     {/* ========================================================= */}
                     {auth.user.role === 'gsm' && (
                         <div className="space-y-8">
@@ -305,7 +304,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
             </div>
 
             {/* ========================================================= */}
-            {/* 🖼️ MODAL POP-UP UNTUK MELIHAT FOTO REALTIME GSM             */}
+            {/* MODAL POP-UP UNTUK MELIHAT FOTO REALTIME GSM             */}
             {/* ========================================================= */}
             {activeSelfie && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">

@@ -30,7 +30,7 @@ class GsmAccessController extends Controller
                     ->orWhere('pemusik_id', $userId);
             })->exists();
 
-        // 🛠️ TOLERANSI TESTING: Jika bukan hari Minggu, paksa TRUE agar tombol absen muncul di HP saat dicoba
+        // TOLERANSI TESTING: Jika bukan hari Minggu, paksa TRUE agar tombol absen muncul di HP saat dicoba
         if (Carbon::now()->dayOfWeek !== Carbon::SUNDAY) {
             $canAbsent = true;
         }

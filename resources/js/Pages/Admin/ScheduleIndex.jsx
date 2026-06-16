@@ -107,7 +107,7 @@ export default function ScheduleIndex({ schedules, gsmUsers, chartData }) {
                         </div>
                     )}
 
-                    {/* 📅 TABEL DATA JADWAL */}
+                    {/* TABEL DATA JADWAL */}
                     <div className="overflow-hidden rounded-2xl bg-white shadow-xs border border-slate-100 dark:bg-slate-800 dark:border-transparent">
                         <div className="p-6 border-b border-slate-100 dark:border-slate-700">
                             <h3 className="text-lg font-bold text-slate-900 dark:text-white">Log Agenda Penugasan</h3>
@@ -165,7 +165,7 @@ export default function ScheduleIndex({ schedules, gsmUsers, chartData }) {
                     </div>
 
                     {/* ========================================================= */}
-                    {/* 📊 GRAFIK LAPORAN AKUMULASI PELAYANAN GSM                 */}
+                    {/* GRAFIK LAPORAN AKUMULASI PELAYANAN GSM                 */}
                     {/* ========================================================= */}
                     <div className="rounded-2xl bg-white p-6 shadow-sm border border-slate-100 dark:bg-slate-800 dark:border-transparent">
                         <div className="mb-6">

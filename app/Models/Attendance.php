@@ -9,7 +9,6 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    // 🔒 Daftarkan kolom-kolom ini agar diizinkan melakukan Mass Assignment
     protected $fillable = [
         'user_id',
         'schedule_id',

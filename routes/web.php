@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/schedules/{schedule}', [ScheduleController::class, 'update'])->name('admin.schedules.update');
     Route::delete('/admin/schedules/{schedule}', [ScheduleController::class, 'destroy'])->name('admin.schedules.destroy');
     Route::post('/admin/attendances/manual', [AdminUserController::class, 'storeManualAttendance'])->name('admin.attendances.manual');
-Route::delete('/admin/attendances/{attendance}', [AdminUserController::class, 'destroyAttendance'])->name('admin.attendances.destroy');
+    Route::delete('/admin/attendances/{attendance}', [AdminUserController::class, 'destroyAttendance'])->name('admin.attendances.destroy');
 
     Route::get('/gsm/schedules', [GsmAccessController::class, 'viewSchedules'])->name('gsm.schedules.index');
     Route::get('/gsm/attendances', [GsmAccessController::class, 'viewAttendances'])->name('gsm.attendances.index');

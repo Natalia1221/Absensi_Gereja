@@ -74,21 +74,21 @@ export default function AttendancePortal() {
             const canvas = canvasRef.current;
             const context = canvas.getContext('2d');
             
-            // 🛠️ Paksa resolusi canvas ke ukuran rendah (640x480) agar hemat memori di HP
+            // Paksa resolusi canvas ke ukuran rendah (640x480) agar hemat memori di HP
             canvas.width = 640;
             canvas.height = 480;
             
-            // 🚨 PROSES TRANSLASI & SCALE UNTUK EFEK MIRROR PADA CANVAS
+            // PROSES TRANSLASI & SCALE UNTUK EFEK MIRROR PADA CANVAS
             context.translate(canvas.width, 0); // Geser titik poros ke kanan ujung canvas
             context.scale(-1, 1);              // Balikkan bidang gambar horizontal (X) sebesar -1
 
             // Gambar video ke dalam canvas yang posisinya sudah terbalik seperti cermin
             context.drawImage(videoRef.current, 0, 0, 640, 480);
             
-            // 🚨 KEMBALIKAN TRANSFORMAST CANVAS KE NORMAL (Penting agar tidak mengacaukan rendering berikutnya)
+            // KEMBALIKAN TRANSFORMAST CANVAS KE NORMAL (Penting agar tidak mengacaukan rendering berikutnya)
             context.setTransform(1, 0, 0, 1, 0, 0);
             
-            // 🛠️ Kompres kualitas gambar menjadi 0.5 (50%) agar string teks Base64 menjadi sangat pendek
+            // Kompres kualitas gambar menjadi 0.5 (50%) agar string teks Base64 menjadi sangat pendek
             const base64Image = canvas.toDataURL('image/jpeg', 0.5);
             
             // Simpan hasil kompresi ke state form
@@ -109,15 +109,15 @@ export default function AttendancePortal() {
             return;
         }
 
-        axios.post('/gsm/attendances', { // 👈 Sesuaikan dengan rute POST absensimu
-            user_id: data.user_id, // jika ini dari sisi admin
+        axios.post('/gsm/attendances', { 
+            user_id: data.user_id, 
             latitude: data.latitude,
             longitude: data.longitude,
             selfie: data.selfie
         })
         .then(response => {
             alert("✨ LUAR BIASA! Data Absensi Berhasil Masuk Database!");
-            window.location.href = '/dashboard'; //  PAKSA HALAMAN HP PINDAH LANGSUNG KE DASHBOARD UTAMA
+            window.location.href = '/dashboard';
         })
         .catch(error => {
             // Menampilkan pesan error spesifik dari Laravel jika ada
@@ -216,7 +216,7 @@ export default function AttendancePortal() {
                             {processing ? 'Memproses Validasi Jarak...' : '✓ Kirim & Kirim Absensi'}
                         </button>
 
-                        {/* 🔍 KODE PELACAK ERROR TERSEMBUNYI */}
+                        {/* KODE PELACAK ERROR TERSEMBUNYI */}
                         {Object.keys(errors).length > 0 && (
                             <div className="mb-4 rounded-xl bg-red-50 p-4 text-xs font-semibold text-red-800 dark:bg-red-950/40 dark:text-red-200">
                                 ⚠️ Absensi Gagal Dikirim karena:

@@ -77,7 +77,7 @@ export default function IndexUser({ users }) {
                                                         {user.role}
                                                     </span>
                                                 </td>
-                                                {/* ⚙️ TOMBOL AKSI EDIT & HAPUS */}
+                                                {/* TOMBOL AKSI EDIT & HAPUS */}
                                                 <td className="px-6 py-4 text-center">
                                                     <div className="inline-flex items-center gap-3">
                                                         {/* Tombol Edit */}
