@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use App\Models\Attendance;
+use App\Models\Schedule;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class AdminUserController extends Controller
 {
@@ -143,5 +147,59 @@ class AdminUserController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index')->with('message', 'Akun pelayan resmi dihapus dari sistem!');
+    }
+
+    public function storeManualAttendance(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $hariIni = Carbon::now()->toDateString();
+        $jadwalAktif = Schedule::where('sunday_date', $hariIni)->first();
+        if (!$jadwalAktif) {
+            $jadwalAktif = Schedule::orderBy('sunday_date', 'desc')->first();
+        }
+
+        if (!$jadwalAktif) {
+            return redirect()->back()->with('message', 'Gagal! Buat data jadwal master terlebih dahulu.');
+        }
+
+        $alreadyAbsent = Attendance::where('user_id', $request->user_id)
+            ->where('schedule_id', $jadwalAktif->id)
+            ->exists();
+
+        if ($alreadyAbsent) {
+            return redirect()->back()->with('message', 'Gagal! GSM yang bersangkutan sudah mengisi absensi.');
+        }
+
+        Attendance::create([
+            'user_id'     => $request->user_id,
+            'schedule_id' => $jadwalAktif->id,
+            'attended_at' => Carbon::now(),
+            'latitude'    => 'Manual-Admin',
+            'longitude'   => 'Manual-Admin',
+            'photo_path' => 'Manual-Admin',
+        ]);
+
+        return redirect()->back()->with('message', 'Berhasil menambahkan absensi kehadiran GSM secara manual.');
+    }
+
+    public function destroyAttendance(Attendance $attendance)
+    {
+        try {
+            // 1. Hapus berkas fisik foto jika ada di folder storage
+            if ($attendance->photo_path && Storage::disk('public')->exists($attendance->photo_path)) {
+                Storage::disk('public')->delete($attendance->photo_path);
+            }
+
+            // 2. Hapus data dari database SQLite
+            $attendance->delete();
+
+            return redirect()->back()->with('message', 'Data absensi salah berhasil dihapus dari sistem.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', 'Gagal menghapus absensi. Error: ' . $e->getMessage());
+        }
     }
 }

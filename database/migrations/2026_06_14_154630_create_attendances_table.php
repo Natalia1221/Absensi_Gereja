@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             // Menghubungkan absen dengan akun GSM yang login
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            
+            $table->foreignId('schedule_id')->nullable()->constrained()->onDelete('set null');
             // Menyimpan data lokasi GPS & Foto Selfie Kehadiran
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->string('selfie_path')->nullable(); // Tempat simpan nama file foto
+            $table->string('photo_path')->nullable(); // Tempat simpan nama file foto
             
             $table->timestamps(); // Otomatis mencatat 'created_at' (Waktu Absen)
         });
