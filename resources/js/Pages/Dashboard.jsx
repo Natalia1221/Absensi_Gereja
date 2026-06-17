@@ -30,10 +30,11 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
             });
         }
     };
+
     return (
         <AuthenticatedLayout
             header={
-                <h2 className="text-xl font-semibold leading-tight text-slate-800 dark:text-slate-100">
+                <h2 className="text-xl font-semibold leading-tight text-slate-800 dark:text-slate-800">
                     {auth.user.role === 'admin' ? 'Pusat Kendali Admin' : 'Portal Pelayanan GSM'}
                 </h2>
             }
@@ -69,7 +70,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                                     auth.user.role === 'admin' 
                                         ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300' 
                                         : 'bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300'
-                                    }`}>
+                                }`}>
                                     Role: {auth.user.role}
                                 </span>
                             </div>
@@ -77,7 +78,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                     </div>
 
                     {/* ========================================================= */}
-                    {/* TAMPILAN 1: DASHBOARD KHUSUS ADMINISTRATOR             */}
+                    {/* TAMPILAN 1: DASHBOARD KHUSUS ADMINISTRATOR              */}
                     {/* ========================================================= */}
                     {auth.user.role === 'admin' && (
                         <div className="space-y-8">
@@ -101,7 +102,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-5 py-3 rounded-xl whitespace-nowrap transition-all disabled:opacity-50"
+                                        className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-5 py-3 rounded-xl whitespace-nowrap transition-all disabled:opacity-50 dark:bg-teal-600 dark:hover:bg-teal-500"
                                     >
                                         + Setir Hadir
                                     </button>
@@ -110,22 +111,22 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
 
                             {/* TABEL MONITORING DAFTAR HADIR GSM SELURUHNYA */}
                             <div className="overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-100 dark:bg-slate-800 dark:border-slate-700">
-                                <div className="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-900/10">
+                                <div className="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/50">
                                     <h5 className="text-base font-bold text-slate-900 dark:text-white">Live Monitor Kehadiran Guru Pelayan</h5>
                                     <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">Pantau ketepatan waktu, titik koordinat GPS, serta verifikasi foto wajah asli para pengajar di lapangan.</p>
                                 </div>
 
                                 <div className="overflow-x-auto">
-                                    <table className="w-full text-left border-collapse">
+                                    <table className="w-full text-left border-collapse whitespace-nowrap">
                                         <thead>
-                                            <tr className="bg-slate-50 text-[11px] font-extrabold uppercase text-slate-600 border-b border-slate-100 dark:bg-slate-900/60 dark:text-slate-400 dark:border-slate-700 tracking-wider">
+                                            <tr className="bg-slate-50 text-[11px] font-extrabold uppercase tracking-wider text-slate-500 border-b border-slate-100 dark:bg-slate-700/50 dark:text-slate-400 dark:border-slate-700">
                                                 <th className="px-6 py-4">Nama Guru</th>
                                                 <th className="px-6 py-4">Waktu Presensi</th>
                                                 <th className="px-6 py-4">Status / Geofence</th>
-                                                <th className="px-6 py-4 text-center" colspan="2">Aksi Verifikasi</th>
+                                                <th className="px-6 py-4 text-center">Aksi Verifikasi</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-700 dark:divide-slate-700 dark:text-slate-300">
+                                        <tbody className="divide-y divide-slate-100 text-sm text-slate-700 dark:text-slate-300 dark:divide-slate-700">
                                             {allAttendances.length === 0 ? (
                                                 <tr>
                                                     <td colSpan="4" className="px-6 py-10 text-center text-slate-400 dark:text-slate-500 text-xs">
@@ -134,57 +135,45 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                                                 </tr>
                                             ) : (
                                                 allAttendances.map((abs) => (
-                                                    <tr key={abs.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-900/10 transition-colors">
-                                                        <td className="px-6 py-4 font-bold text-slate-900 dark:text-white whitespace-nowrap">
+                                                    <tr key={abs.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
+                                                        <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">
                                                             {abs.user?.name}
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-6 py-4 font-medium">
                                                             {new Date(abs.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
-                                                            <span className="text-xs text-slate-400 font-normal ml-1">
+                                                            <span className="text-xs text-slate-400 font-normal ml-1 dark:text-slate-500">
                                                                 ({new Date(abs.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB)
                                                             </span>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                        <td className="px-6 py-4">
                                                             {abs.latitude === 'Manual-Admin' ? (
-                                                                <span className="text-xs bg-amber-50 text-amber-700 font-bold px-2.5 py-0.5 rounded-full dark:bg-amber-950/30 dark:text-amber-300">
+                                                                <span className="text-xs bg-amber-50 text-amber-700 font-bold px-2.5 py-0.5 rounded-full dark:bg-amber-500/10 dark:text-amber-400">
                                                                     ✍️ Input Manual Admin
                                                                 </span>
                                                             ) : (
-                                                                <span className="text-xs bg-emerald-50 text-emerald-700 font-bold px-2.5 py-0.5 rounded-full dark:bg-emerald-950/30 dark:text-emerald-300">
+                                                                <span className="text-xs bg-emerald-50 text-emerald-700 font-bold px-2.5 py-0.5 rounded-full dark:bg-emerald-500/10 dark:text-emerald-400">
                                                                     📍 Terverifikasi GPS
                                                                 </span>
                                                             )}
                                                         </td>
-                                                        <td className="px-6 py-4 text-center whitespace-nowrap">
-                                                            {abs.photo_path ? (
-                                                                <button
-                                                                    onClick={() => setActiveSelfie(`/storage/${abs.photo_path}`)}
-                                                                    className="text-xs font-bold bg-teal-50 text-teal-700 px-3 py-1.5 rounded-lg hover:bg-teal-100 transition-colors dark:bg-teal-950/30 dark:text-teal-400"
-                                                                >
-                                                                    🔍 Lihat Foto
-                                                                </button>
-                                                            ) : (
-                                                                <span className="text-xs font-medium text-slate-400 italic">Tanpa Foto</span>
-                                                            )}
-                                                        </td>
-                                                        <td className="px-6 py-4 text-center whitespace-nowrap">
-                                                            <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+                                                        <td className="px-6 py-4">
+                                                            <div className="flex items-center justify-center gap-2">
                                                                 {/* TOMBOL LIHAT FOTO */}
                                                                 {abs.photo_path ? (
                                                                     <button
                                                                         onClick={() => setActiveSelfie(`/storage/${abs.photo_path}`)}
-                                                                        className="text-xs font-bold bg-teal-50 text-teal-700 px-3 py-1.5 rounded-lg hover:bg-teal-100 transition-colors dark:bg-teal-950/30 dark:text-teal-400"
+                                                                        className="text-xs font-bold bg-teal-50 text-teal-700 px-3 py-1.5 rounded-lg hover:bg-teal-100 transition-colors dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
                                                                     >
                                                                         🔍 Lihat Foto
                                                                     </button>
                                                                 ) : (
-                                                                    <span className="text-xs font-medium text-slate-400 italic">Tanpa Foto</span>
+                                                                    <span className="text-xs font-medium text-slate-400 italic dark:text-slate-500 px-2">Tanpa Foto</span>
                                                                 )}
 
-                                                                {/* TOMBOL AKSI HAPUS (BARU) */}
+                                                                {/* TOMBOL AKSI HAPUS */}
                                                                 <button
                                                                     onClick={() => handleDelete(abs.id, abs.user?.name)}
-                                                                    className="text-xs font-bold bg-red-50 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-100 transition-colors dark:bg-red-950/30 dark:text-red-400"
+                                                                    className="text-xs font-bold bg-red-50 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-100 transition-colors dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/20"
                                                                 >
                                                                     🗑️ Hapus
                                                                 </button>
@@ -204,12 +193,12 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                                 Manajemen Data Master
                             </h4>
                             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                                <Link href={route('admin.schedules.index')} className="group rounded-2xl bg-white p-6 shadow-xs border border-slate-100 hover:border-teal-500/30 transition-all dark:bg-slate-800 dark:border-transparent">
-                                    <h5 className="font-bold text-slate-900 dark:text-white group-hover:text-teal-600 transition-colors">Menyusun Jadwal Pelayanan</h5>
+                                <Link href={route('admin.schedules.index')} className="group rounded-2xl bg-white p-6 shadow-xs border border-slate-100 hover:border-teal-500/30 transition-all dark:bg-slate-800 dark:border-transparent dark:hover:border-slate-700">
+                                    <h5 className="font-bold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">Menyusun Jadwal Pelayanan</h5>
                                     <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">Atur ploting guru pelayan per-ibadah minggu secara terstruktur.</p>
                                 </Link>
-                                <Link href={route('admin.users.index')} className="group rounded-2xl bg-white p-6 shadow-xs border border-slate-100 hover:border-teal-500/30 transition-all dark:bg-slate-800 dark:border-transparent">
-                                    <h5 className="font-bold text-slate-900 dark:text-white group-hover:text-teal-600 transition-colors">Melihat Daftar Akun</h5>
+                                <Link href={route('admin.users.index')} className="group rounded-2xl bg-white p-6 shadow-xs border border-slate-100 hover:border-teal-500/30 transition-all dark:bg-slate-800 dark:border-transparent dark:hover:border-slate-700">
+                                    <h5 className="font-bold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">Melihat Daftar Akun</h5>
                                     <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">Pantau seluruh akun terdaftar beserta tingkatan hak aksesnya.</p>
                                 </Link>
                             </div>
@@ -217,7 +206,7 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                     )}
 
                     {/* ========================================================= */}
-                    {/* TAMPILAN 2: DASHBOARD KHUSUS USER / GSM               */}
+                    {/* TAMPILAN 2: DASHBOARD KHUSUS USER / GSM                */}
                     {/* ========================================================= */}
                     {auth.user.role === 'gsm' && (
                         <div className="space-y-8">
@@ -225,11 +214,11 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
                                 <h5 className="text-lg font-bold text-slate-900 dark:text-white">Presensi Kehadiran</h5>
                                 <div className="mt-4 max-w-md">
                                     {canAbsent ? (
-                                        <Link href={route('gsm.attendances.index')} className="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-4 text-center text-sm font-bold text-white shadow-lg transition-all">
+                                        <Link href={route('gsm.attendances.index')} className="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 px-6 py-4 text-center text-sm font-bold text-white shadow-lg transition-all hover:opacity-95">
                                             🚀 Catat Absen Sekarang
                                         </Link>
                                     ) : (
-                                        <div className="rounded-xl bg-amber-50/70 p-4 border border-amber-200 text-xs font-semibold text-amber-800 dark:bg-amber-950/20 dark:text-amber-400">
+                                        <div className="rounded-xl bg-amber-50/70 p-4 border border-amber-200 text-xs font-semibold text-amber-800 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50">
                                             🔒 Tombol Absensi Belum Dibuka.
                                         </div>
                                     )}
@@ -238,25 +227,35 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
 
                             {/* LOG ABSEN GSM */}
                             <div className="overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-100 dark:bg-slate-800 dark:border-slate-700">
-                                <div className="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/40">
+                                <div className="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/50">
                                     <h5 className="text-base font-bold text-slate-900 dark:text-white">Log Riwayat Kehadiran Anda</h5>
                                 </div>
                                 <div className="overflow-x-auto">
-                                    <table className="w-full text-left">
+                                    <table className="w-full text-left whitespace-nowrap">
                                         <thead>
-                                            <tr className="bg-slate-50 text-[11px] font-extrabold uppercase text-slate-600 border-b border-slate-100">
-                                                <th className="px-6 py-4">Waktu Absen</th>
-                                                <th className="px-6 py-4">Status Kehadiran</th>
+                                            <tr className="bg-slate-50 text-[11px] font-extrabold uppercase tracking-wider text-slate-500 border-b border-slate-100 dark:bg-slate-700/50 dark:text-slate-400 dark:border-slate-700">
+                                                <th className="px-6 py-3.5">Waktu Absen</th>
+                                                <th className="px-6 py-3.5">Status Kehadiran</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-slate-100 text-sm">
+                                        <tbody className="divide-y divide-slate-100 text-sm text-slate-700 dark:text-slate-300 dark:divide-slate-700">
                                             {attendances.length === 0 ? (
-                                                <tr><td colSpan="2" className="px-6 py-8 text-center text-slate-400 text-xs">Belum ada riwayat absen.</td></tr>
+                                                <tr>
+                                                    <td colSpan="2" className="px-6 py-8 text-center text-slate-400 dark:text-slate-500 text-xs">
+                                                        Belum ada riwayat absen.
+                                                    </td>
+                                                </tr>
                                             ) : (
                                                 attendances.map(abs => (
-                                                    <tr key={abs.id}>
-                                                        <td className="px-6 py-4 font-bold">{new Date(abs.created_at).toLocaleDateString('id-ID')}</td>
-                                                        <td className="px-6 py-4"><span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-green-50 text-green-700">Hadir</span></td>
+                                                    <tr key={abs.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
+                                                        <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">
+                                                            {new Date(abs.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            <span className="inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-400">
+                                                                Hadir
+                                                            </span>
+                                                        </td>
                                                     </tr>
                                                 ))
                                             )}
@@ -267,32 +266,42 @@ export default function Dashboard({ canAbsent = false, schedules = [], attendanc
 
                             {/* JADWAL PELAYANAN UTAMA */}
                             <div className="overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-100 dark:bg-slate-800 dark:border-slate-700">
-                                <div className="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/40">
+                                <div className="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/50">
                                     <h5 className="text-base font-bold text-slate-900 dark:text-white">Agenda Jadwal Pelayanan GSM</h5>
                                 </div>
                                 <div className="overflow-x-auto">
-                                    <table className="w-full text-left">
+                                    <table className="w-full text-left whitespace-nowrap">
                                         <thead>
-                                            <tr className="bg-slate-50 text-[11px] font-extrabold uppercase text-slate-600 border-b border-slate-100">
-                                                <th className="px-6 py-4">Tanggal Minggu</th>
-                                                <th className="px-6 py-4">Pemimpin Pujian</th>
-                                                <th className="px-6 py-4">Horong 1</th>
-                                                <th className="px-6 py-4">Horong 2</th>
-                                                <th className="px-6 py-4">Horong 3</th>
-                                                <th className="px-6 py-4">Pemusik</th>
+                                            <tr className="bg-slate-50 text-[11px] font-extrabold uppercase tracking-wider text-slate-500 border-b border-slate-100 dark:bg-slate-700/50 dark:text-slate-400 dark:border-slate-700">
+                                                <th className="px-6 py-3.5">Tanggal Minggu</th>
+                                                <th className="px-6 py-3.5">Pemimpin Pujian</th>
+                                                <th className="px-6 py-3.5">Horong 1</th>
+                                                <th className="px-6 py-3.5">Horong 2</th>
+                                                <th className="px-6 py-3.5">Horong 3</th>
+                                                <th className="px-6 py-3.5">Pemusik</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            {schedules.map(sch => (
-                                                <tr key={sch.id} className="text-sm">
-                                                    <td className="px-6 py-4 font-bold text-teal-600">{sch.sunday_date}</td>
-                                                    <td className="px-6 py-4">{sch.pujian?.name || '-'}</td>
-                                                    <td className="px-6 py-4">{sch.horong1?.name || '-'}</td>
-                                                    <td className="px-6 py-4">{sch.horong2?.name || '-'}</td>
-                                                    <td className="px-6 py-4">{sch.horong3?.name || '-'}</td>
-                                                    <td className="px-6 py-4">{sch.pemusik?.name || '-'}</td>
+                                        <tbody className="divide-y divide-slate-100 text-sm text-slate-700 dark:text-slate-300 dark:divide-slate-700">
+                                            {schedules.length === 0 ? (
+                                                <tr>
+                                                    <td colSpan="6" className="px-6 py-8 text-center text-slate-400 dark:text-slate-500 text-xs">
+                                                        Belum ada agenda pelayanan.
+                                                    </td>
                                                 </tr>
-                                            ))}
+                                            ) : (
+                                                schedules.map(sch => (
+                                                    <tr key={sch.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
+                                                        <td className="px-6 py-4 font-semibold text-teal-600 dark:text-teal-400">
+                                                            {sch.sunday_date}
+                                                        </td>
+                                                        <td className="px-6 py-4 font-medium text-slate-900 dark:text-slate-200">{sch.pujian?.name || '-'}</td>
+                                                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{sch.horong1?.name || '-'}</td>
+                                                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{sch.horong2?.name || '-'}</td>
+                                                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{sch.horong3?.name || '-'}</td>
+                                                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{sch.pemusik?.name || '-'}</td>
+                                                    </tr>
+                                                ))
+                                            )}
                                         </tbody>
                                     </table>
                                 </div>
