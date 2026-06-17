@@ -47,13 +47,13 @@ The system architecture cleanly separates responsibilities into **two distinct u
 *The application provides an intuitive User Interface tailored for mobile views (`Samsung Galaxy A16`) and desktop monitoring:*
 
 <p align="center">
-  <img src="screenshots/1.Welcome_Page.jpeg" width="30%" alt="Welcome Page" />
-  <img src="screenshots/2.Login.jpeg" width="30%" alt="Login Page" />
-  <img src="screenshots/3.Portal_Admin.jpeg" width="30%" alt="Admin Portal" />
-  <img src="screenshots/4.Penjadwalan_Pelayanan.jpeg" width="30%" alt="Schedule Page" />
-  <img src="screenshots/5.Daftar_Pelayan_GSM.jpeg" width="30%" alt="The List of Users" />
-  <img src="screenshots/6.Portal_Pelayanan_GSM.jpeg" width="30%" alt="Sunday School Teacher Portal" />
-    <img src="screenshots/7.Absensi_GSM.jpeg" width="30%" alt="Absensi Portal" />
+  <img src="screenshots/1.Welcome_Page.jpeg" height="300px" alt="Welcome Page" />
+  <img src="screenshots/2.Login.jpeg" height="300px" alt="Login Page" />
+  <img src="screenshots/3.Portal_Admin.jpeg" height="300px" alt="Admin Portal" />
+  <img src="screenshots/4.Penjadwalan_Pelayanan.jpeg" height="300px" alt="Schedule Page" />
+  <img src="screenshots/5.Daftar_Pelayan_GSM.jpeg" height="300px" alt="The List of Users" />
+  <img src="screenshots/6.Portal_Pelayanan_GSM.jpeg" height="300px" alt="Sunday School Teacher Portal" />
+    <img src="screenshots/7.Absensi_GSM.jpeg" height="300px" alt="Absensi Portal" />
 </p>
 
 ---
